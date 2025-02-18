@@ -455,13 +455,10 @@ public class OpenFilePlusPlugin implements FlutterPlugin, MethodCallHandler, Act
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        if (channel == null) {
-            // Could be on too low of an SDK to have started listening originally.
-            return;
+        if (channel != null) {
+            channel.setMethodCallHandler(null);
+            channel = null;
         }
-
-        channel.setMethodCallHandler(null);
-        channel = null;
     }
 
     @Override
